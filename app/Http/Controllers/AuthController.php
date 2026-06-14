@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\Usuario;
 
 class AuthController extends Controller
 {
@@ -21,11 +22,29 @@ class AuthController extends Controller
     {
         $googleUser = Socialite::driver('google')->user();
 
+        $usuario = Usuario::where(
+            'email',
+            $googleUser->getEmail()
+        )->first();
+
+        if (!$usuario) {
+
+            $usuario = Usuario::create([
+                'nombre' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'google_id' => $googleUser->getId(),
+                'rol' => 1,
+                'estado' => 'activo'
+            ]);
+        }
+
         return response()->json([
-            'googleId' => $googleUser->getId(),
-            'nombre' => $googleUser->getName(),
-            'email' => $googleUser->getEmail(),
-            'foto' => $googleUser->getAvatar()
+            'id' => $usuario->id,
+            'nombre' => $usuario->nombre,
+            'email' => $usuario->email,
+            'rol' => $usuario->rol,
+            'estado' => $usuario->estado,
+            'accessToken' => $googleUser->token
         ]);
     }
 }

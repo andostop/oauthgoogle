@@ -23,12 +23,15 @@ class PerfilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'usuario_id' => 'required|integer',
-            'bio' => 'required|string',
-            'carrera' => 'required|string',
-            'ciclo' => 'required|integer'
+            'usuario_id' => 'required|integer|exists:usuarios,id|unique:perfiles,usuario_id',
+            'bio' => 'required|string|min:10|max:500',
+            'carrera' => 'required|string|min:3|max:100',
+            'ciclo' => 'required|integer|min:1|max:12',
+            'habilidades' => 'nullable|string|max:500',
+            'disponibilidad' => 'nullable|string|max:255',
+            'foto_url' => 'nullable|string|max:255'
         ]);
-    
+
         $perfil = Perfil::create([
             'usuario_id' => $request->usuario_id,
             'bio' => $request->bio,
@@ -48,9 +51,12 @@ class PerfilController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'bio' => 'required|string',
-            'carrera' => 'required|string',
-            'ciclo' => 'required|integer'
+            'bio' => 'required|string|min:10|max:500',
+            'carrera' => 'required|string|min:3|max:100',
+            'ciclo' => 'required|integer|min:1|max:12',
+            'habilidades' => 'nullable|string|max:500',
+            'disponibilidad' => 'nullable|string|max:255',
+            'foto_url' => 'nullable|url|max:255'
         ]);
     
         $perfil = Perfil::where('usuario_id', $id)->first();

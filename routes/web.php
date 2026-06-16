@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PerfilController;
 
 Route::get('/', function () {
     return response()->json([
@@ -12,3 +13,4 @@ Route::get('/', function () {
 Route::get('/auth/google', [AuthController::class, 'redirect']);
 
 Route::get('/auth/google/callback', [AuthController::class, 'callback']);
+

@@ -29,7 +29,7 @@ class PerfilController extends Controller
             'ciclo' => 'required|integer|min:1|max:12',
             'habilidades' => 'nullable|string|max:500',
             'disponibilidad' => 'nullable|string|max:255',
-            'foto_url' => 'nullable|string|max:255'
+            'foto_url' => 'nullable|url|max:255'
         ]);
 
         $perfil = Perfil::create([

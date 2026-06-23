@@ -82,4 +82,22 @@ class PerfilController extends Controller
         ]);
     }
 
+    public function index(Request $request)
+    {
+
+        $query = Perfil::query();
+
+        if ($request->has('carrera')) {
+            $query->where('carrera', 'like', '%' . $request->carrera . '%');
+        }
+
+        if ($request->has('ciclo')) {
+            $query->where('ciclo', $request->ciclo);
+        }
+
+        $perfiles = $query->paginate(5);
+
+        return response()->json($perfiles);
+    }
+
 }

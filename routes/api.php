@@ -14,3 +14,5 @@ Route::get('/perfiles/{id}', [PerfilController::class, 'show']);
 Route::post('/perfiles', [PerfilController::class, 'store']);
 
 Route::put('/perfiles/{id}', [PerfilController::class, 'update']);
+
+Route::get('/perfiles', [PerfilController::class, 'index']);

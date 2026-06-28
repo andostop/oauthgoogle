@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SesionController;
+use App\Http\Controllers\ValoracionController;
+
 
 Route::get(
     '/usuario',
@@ -27,3 +29,9 @@ Route::post('/sesiones', [SesionController::class, 'store']);
 Route::put('/sesiones/{id}', [SesionController::class, 'update']);
 
 Route::put('/sesiones/{id}/cancelar', [SesionController::class, 'cancelar']);
+
+Route::get('/valoraciones', [ValoracionController::class, 'index']);
+
+Route::get('/valoraciones/{id}', [ValoracionController::class, 'show']);
+
+Route::post('/valoraciones', [ValoracionController::class, 'store']);
